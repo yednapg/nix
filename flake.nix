@@ -35,7 +35,7 @@
           onActivation.cleanup = "uninstall";
           taps = [ ];
           brews = [ "python3" "node" ];
-          casks = [ "figma" "alacritty" "slack" "discord" "zoom" "rectangle" "visual-studio-code" "google-chrome" "spotify" "firefox@developer-edition" ];
+          casks = [ "figma" "alacritty" "slack" "discord" "zoom" "rectangle" "visual-studio-code" "spotify" "chromium" "firefox@developer-edition" ];
         };
    	
 	# macOS settings
@@ -48,7 +48,8 @@
         
 	# home-manager packages
         home.packages = with pkgs; [
-	 ];
+		
+	      ];
 
         home.sessionVariables = {
           EDITOR = "vim";
@@ -61,13 +62,6 @@
           };
         };
         
-        programs.zsh.dotDir = ".config/zsh";  
-        programs.zsh.initExtra = ''
-          # Powerlevel10k Zsh theme  
-          source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme  
-          test -f ~/.config/zsh/.p10k.zsh && source ~/.config/zsh/.p10k.zsh  
-        '';
-
         programs.neovim = {
           enable = true;
           defaultEditor = false;
@@ -75,9 +69,11 @@
           vimAlias = false;
           vimdiffAlias = false;
           plugins = with pkgs.vimPlugins; [
+            base16-vim
           ];
           extraLuaConfig = ''
             vim.o.termguicolors = true
+            vim.cmd("colorscheme base16-default-dark")
           '';
         };
 
