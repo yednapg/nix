@@ -25,31 +25,32 @@
         };
         security.pam.enableSudoTouchIdAuth = true;
         programs.zsh.enable = true;
-        
-	# nix-darwin packages
-        environment.systemPackages = [ 
-                    
-        ];
+
+        # nix-darwin packages
+        environment.systemPackages = [];
+
         homebrew = {
           enable = true;
           onActivation.cleanup = "uninstall";
-          taps = [ ];
+          taps = [];
           brews = [ "python3" "node" ];
-          casks = [ "figma" "alacritty" "slack" "discord" "zoom" "rectangle" "visual-studio-code" "spotify" "chromium" "firefox@developer-edition" ];
+          casks = [
+            "alacritty" "alfred" "jordanbaird-ice" "whatsapp" "figma" "slack"
+            "discord" "zoom" "rectangle" "visual-studio-code" "spotify"
+            "eloston-chromium"
+          ];
         };
-   	
-	# macOS settings
+
+        # macOS settings
         system.defaults.dock.autohide = true;
       };
 
       homeconfig = { pkgs, ... }: {
         home.stateVersion = "23.05";
         programs.home-manager.enable = true;
-        
-	# home-manager packages
-        home.packages = with pkgs; [
-		
-	      ];
+
+        # home-manager packages
+        home.packages = with pkgs; [];
 
         home.sessionVariables = {
           EDITOR = "vim";
@@ -61,16 +62,18 @@
             switch = "darwin-rebuild switch --flake ~/.config/nix";
           };
         };
-        
+
         programs.neovim = {
           enable = true;
           defaultEditor = false;
           viAlias = false;
           vimAlias = false;
           vimdiffAlias = false;
+          
           plugins = with pkgs.vimPlugins; [
             base16-vim
           ];
+
           extraLuaConfig = ''
             vim.o.termguicolors = true
             vim.cmd("colorscheme base16-default-dark")
@@ -80,12 +83,8 @@
         programs.alacritty = {
           enable = true;
           settings = {
-            font.size = 18;
-            window = {
-              padding.x = 10;
-              padding.y = 10;
-              decorations = "buttonless";
-            };
+            window.decorations = "none";
+            font.size = 14;
           };
         };
 
@@ -97,8 +96,8 @@
           extraConfig = {
             init.defaultBranch = "main";
             push.autoSetupRemote = true;
-         };
-	};
+          };
+        };
       };
     in
     {
