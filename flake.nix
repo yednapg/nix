@@ -33,10 +33,10 @@
           enable = true;
           onActivation.cleanup = "uninstall";
           taps = [];
-          brews = [ "python3" "node" ];
+          brews = [ "node" ];
           casks = [
-            "alacritty" "alfred" "jordanbaird-ice" "whatsapp" "figma" "slack"
-            "discord" "zoom" "rectangle" "visual-studio-code" "spotify"
+            "kitty" "alfred" "mac-mouse-fix" "jordanbaird-ice" "whatsapp" "figma" "slack"
+            "discord" "1password" "mactex" "zoom" "rectangle" "visual-studio-code" "spotify"
             "eloston-chromium"
           ];
         };
@@ -61,6 +61,10 @@
           shellAliases = {
             switch = "darwin-rebuild switch --flake ~/.config/nix";
           };
+		
+	#  extraConfig = ''
+	#  	export PATH="/Library/TeX/texbin:$PATH"
+	#  '';
         };
 
         programs.neovim = {
@@ -71,21 +75,10 @@
           vimdiffAlias = false;
           
           plugins = with pkgs.vimPlugins; [
-            base16-vim
           ];
 
           extraLuaConfig = ''
-            vim.o.termguicolors = true
-            vim.cmd("colorscheme base16-default-dark")
           '';
-        };
-
-        programs.alacritty = {
-          enable = true;
-          settings = {
-            window.decorations = "none";
-            font.size = 14;
-          };
         };
 
         programs.git = {
