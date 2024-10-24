@@ -27,7 +27,7 @@
         programs.zsh.enable = true;
 
         # nix-darwin packages
-        environment.systemPackages = [];
+	environment.systemPackages = with pkgs; [ vim ];	
 
         homebrew = {
           enable = true;
@@ -35,7 +35,7 @@
           taps = [];
           brews = [ "node" ];
           casks = [
-            "kitty" "alfred" "mac-mouse-fix" "jordanbaird-ice" "whatsapp" "figma" "slack"
+        	"alfred" "mac-mouse-fix" "warp" "jordanbaird-ice" "whatsapp" "figma" "slack"
             "discord" "1password" "mactex" "zoom" "rectangle" "visual-studio-code" "spotify"
             "eloston-chromium"
           ];
@@ -62,24 +62,34 @@
             switch = "darwin-rebuild switch --flake ~/.config/nix";
           };
 		
-	#  extraConfig = ''
-	#  	export PATH="/Library/TeX/texbin:$PATH"
-	#  '';
+	  initExtra = ''
+	    export PATH="/Library/TeX/texbin:$PATH"
+	  '';
         };
 
         programs.neovim = {
-          enable = true;
+          enable = false;
           defaultEditor = false;
           viAlias = false;
           vimAlias = false;
           vimdiffAlias = false;
-          
           plugins = with pkgs.vimPlugins; [
           ];
 
-          extraLuaConfig = ''
+          extraConfig = ''
           '';
         };
+	
+	programs.vim = { 
+	  enable = true;
+	  defaultEditor = true;
+	  settings = {ignorecase = true; };
+	  extraConfig = ''
+                set mouse=a
+                set number
+                syntax on
+	  '';
+	};
 
         programs.git = {
           enable = true;
