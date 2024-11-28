@@ -27,17 +27,15 @@
         programs.zsh.enable = true;
 
         # nix-darwin packages
-	environment.systemPackages = with pkgs; [ vim ];	
+	environment.systemPackages = with pkgs; [ vim git-lfs ];	
 
         homebrew = {
           enable = true;
           onActivation.cleanup = "uninstall";
-          taps = [];
-          brews = [ "node" ];
+          taps = [  "homebrew/services" ];
+          brews = [ "node" "fish" "ruby"];
           casks = [
-        	"alfred" "mac-mouse-fix" "warp" "jordanbaird-ice" "whatsapp" "figma" "slack"
-            "discord" "1password" "mactex" "zoom" "rectangle" "visual-studio-code" "spotify"
-            "eloston-chromium"
+        	 "mac-mouse-fix" "whatsapp" "figma" "slack" "discord" "zoom" "visual-studio-code" "1password" "1password-cli" "mactex" "warp" "firefox" "font-hack-nerd-font" "jordanbaird-ice" "eloston-chromium"
           ];
         };
 
@@ -63,12 +61,17 @@
           };
 		
 	  initExtra = ''
-	    export PATH="/Library/TeX/texbin:$PATH"
+            export PATH="/Library/TeX/texbin:$PATH"
+            export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+            export PATH=./node_modules/.bin:$PATH
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 	  '';
         };
 
         programs.neovim = {
-          enable = false;
+          enable = true;
           defaultEditor = false;
           viAlias = false;
           vimAlias = false;
@@ -89,7 +92,7 @@
                 set number
                 syntax on
 	  '';
-	};
+        };
 
         programs.git = {
           enable = true;
@@ -99,8 +102,8 @@
           extraConfig = {
             init.defaultBranch = "main";
             push.autoSetupRemote = true;
+            };
           };
-        };
       };
     in
     {
