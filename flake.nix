@@ -33,9 +33,9 @@
           enable = true;
           onActivation.cleanup = "uninstall";
           taps = [  "homebrew/services" ];
-          brews = [ "node" "fish" "ruby"];
+          brews = [ "nvm" "fish" "postgresql@17" "libpq" "rbenv" "webpack" "yarn" "gh" "cocoapods"];
           casks = [
-        	 "mac-mouse-fix" "whatsapp" "figma" "slack" "discord" "zoom" "visual-studio-code" "1password" "1password-cli" "mactex" "warp" "firefox" "font-hack-nerd-font" "jordanbaird-ice" "eloston-chromium"
+        	 "whatsapp" "figma" "slack" "discord" "zoom" "visual-studio-code" "1password" "1password-cli" "mactex" "warp" "firefox@developer-edition" "rectangle"  "eloston-chromium" "docker"  "selfcontrol" "jordanbaird-ice" "alfred" "maccy" "kitty"
           ];
         };
 
@@ -61,37 +61,27 @@
           };
 		
 	  initExtra = ''
+	    export PATH="/opt/homebrew/bin/brew:$PATH"
             export PATH="/Library/TeX/texbin:$PATH"
             export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
             export PATH=./node_modules/.bin:$PATH
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+            export NVM_DIR="/opt/homebrew/Cellar/nvm/0.40.1" && alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@"
+            export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+            export LDFLAGS="-L/opt/homebrew/opt/libpq/lib"
+            export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
 	  '';
         };
 
-        programs.neovim = {
-          enable = true;
-          defaultEditor = false;
-          viAlias = false;
-          vimAlias = false;
-          vimdiffAlias = false;
-          plugins = with pkgs.vimPlugins; [
-          ];
-
-          extraConfig = ''
-          '';
-        };
-	
 	programs.vim = { 
 	  enable = true;
 	  defaultEditor = true;
 	  settings = {ignorecase = true; };
 	  extraConfig = ''
-                set mouse=a
-                set number
-                syntax on
-	  '';
+              syntax on
+              set number
+              set mouse=a
+             
+          '';
         };
 
         programs.git = {
