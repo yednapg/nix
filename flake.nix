@@ -20,8 +20,7 @@
         home.stateVersion = "23.05";
         programs.home-manager.enable = true;
 
-        # home-manager packages
-        home.packages = with pkgs; [ ];
+        home.packages = with pkgs; [];
 
         home.sessionVariables = {
           EDITOR = "vim";
@@ -55,6 +54,17 @@
           '';
         };
 
+	programs.neovim = {
+	  enable = true;
+	  plugins = with pkgs.vimPlugins; [vim-solarized8];
+	  extraConfig = ''
+	    syntax on
+	    set number
+	    set background=dark
+            colorscheme solarized8_flat
+	  '';
+	};
+
         programs.git = {
           enable = true;
           userName = "Gaurav Pandey";
@@ -82,8 +92,7 @@
         security.pam.enableSudoTouchIdAuth = true;
         programs.zsh.enable = true;
 
-        # nix-darwin packages
-        environment.systemPackages = with pkgs; [vim  git-lfs alacritty mkalias ];
+        environment.systemPackages = with pkgs; [vim neovim git-lfs mkalias];
 
         homebrew = {
           enable = true;
@@ -96,10 +105,12 @@
           casks = [
             "whatsapp" "figma" "slack" "discord" "zoom" "visual-studio-code"
             "warp" "firefox" "rectangle" "eloston-chromium" "docker"
-            "selfcontrol" "alfred" "maccy"
+            "selfcontrol" "alfred" "maccy" "1Password" "appcleaner"
           ];
           masApps = {
             "Xcode" = 497799835;
+            "1Password for Safari" = 1569813296;
+            "AdGuard" = 1440147259;
           };
         };
 
@@ -111,7 +122,6 @@
           };
         in
           pkgs.lib.mkForce ''
-            # Set up applications.
             echo "setting up /Applications..." >&2
             rm -rf /Applications/Nix\ Apps
             mkdir -p /Applications/Nix\ Apps
@@ -123,11 +133,9 @@
             done
           '';
 
-        # macOS settings
         system.defaults = {
           dock.autohide = true;
           dock.persistent-apps = [
-            "/System/Applications/Utilities/Terminal.app"
           ];
           NSGlobalDomain.AppleICUForce24HourTime = true;
           NSGlobalDomain.AppleInterfaceStyle = "Dark";
@@ -139,14 +147,14 @@
       };
     in
     {
-      darwinConfigurations.mountain = nix-darwin.lib.darwinSystem {
+      darwinConfigurations.himalayas = nix-darwin.lib.darwinSystem {
         modules = [
           configuration
           home-manager.darwinModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.verbose = true;
-            home-manager.users.gauravpandey = homeconfig;  # now homeconfig is in scope
+            home-manager.users.gauravpandey = homeconfig;
           }
           nix-homebrew.darwinModules.nix-homebrew {
             nix-homebrew = {
