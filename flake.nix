@@ -17,10 +17,12 @@
   outputs = inputs@{ self, nixpkgs, nix-darwin, nix-homebrew, home-manager }:
     let
       homeconfig = { pkgs, ... }: {
-        home.stateVersion = "23.05";
-        programs.home-manager.enable = true;
-
-        home.packages = with pkgs; [];
+        
+	home.stateVersion = "23.05";
+        
+	programs.home-manager.enable = true;
+        
+	home.packages = with pkgs; [];
 
         home.sessionVariables = {
           EDITOR = "vim";
@@ -43,6 +45,30 @@
           '';
         };
 
+	programs.alacritty = {
+	  enable = true;
+	  settings = {
+		window = {
+			padding = {
+				x = 10;
+				y = 10;
+			};
+			decorations = "Buttonless";
+
+		};
+		font = {
+			normal = { 
+				family = "ComicShannsMono Nerd Font Mono";
+				style = "Regular";
+			};
+			size = 18.0;
+		};
+		general = {
+			live_config_reload = true;
+	  		};
+		};
+			};
+
         programs.vim = {
           enable = true;
           defaultEditor = true;
@@ -51,17 +77,19 @@
             syntax on
             set number
             set mouse=a
+            set background=dark
+            colorscheme retrobox
           '';
         };
 
 	programs.neovim = {
 	  enable = true;
-	  plugins = with pkgs.vimPlugins; [vim-solarized8];
+	  plugins = with pkgs.vimPlugins; [];
 	  extraConfig = ''
 	    syntax on
 	    set number
 	    set background=dark
-            colorscheme solarized8_flat
+            colorscheme retrobox
 	  '';
 	};
 
@@ -92,7 +120,7 @@
         security.pam.enableSudoTouchIdAuth = true;
         programs.zsh.enable = true;
 
-        environment.systemPackages = with pkgs; [vim neovim git-lfs mkalias];
+        environment.systemPackages = with pkgs; [vim neovim git-lfs mkalias alacritty-theme];
 
         homebrew = {
           enable = true;
@@ -105,7 +133,8 @@
           casks = [
             "whatsapp" "figma" "slack" "discord" "zoom" "visual-studio-code"
             "warp" "firefox" "rectangle" "eloston-chromium" "docker"
-            "selfcontrol" "alfred" "maccy" "1Password" "appcleaner"
+            "selfcontrol" "alfred" "maccy" "1Password" "appcleaner" "alacritty"
+	    "font-iosevka-nerd-font" "font-jetbrains-mono-nerd-font" "font-fira-mono-nerd-font" "font-comic-shanns-mono-nerd-font"
           ];
           masApps = {
             "Xcode" = 497799835;
