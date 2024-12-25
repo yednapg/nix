@@ -45,30 +45,6 @@
           '';
         };
 
-	programs.alacritty = {
-	  enable = true;
-	  settings = {
-		window = {
-			padding = {
-				x = 10;
-				y = 10;
-			};
-			decorations = "Buttonless";
-
-		};
-		font = {
-			normal = { 
-				family = "ComicShannsMono Nerd Font Mono";
-				style = "Regular";
-			};
-			size = 18.0;
-		};
-		general = {
-			live_config_reload = true;
-	  		};
-		};
-			};
-
         programs.vim = {
           enable = true;
           defaultEditor = true;
@@ -78,7 +54,7 @@
             set number
             set mouse=a
             set background=dark
-            colorscheme retrobox
+            colorscheme murphy  
           '';
         };
 
@@ -89,7 +65,7 @@
 	    syntax on
 	    set number
 	    set background=dark
-            colorscheme retrobox
+            colorscheme murphy
 	  '';
 	};
 
@@ -128,18 +104,17 @@
           taps = [ "homebrew/services" ];
           brews = [
             "nvm" "fish" "postgresql@17" "libpq" "rbenv" "webpack" "yarn"
-            "gh" "cocoapods" "mas"
+            "gh" "cocoapods" "mas" "watchman"
           ];
           casks = [
             "whatsapp" "figma" "slack" "discord" "zoom" "visual-studio-code"
-            "warp" "firefox" "rectangle" "eloston-chromium" "docker"
-            "selfcontrol" "alfred" "maccy" "1Password" "appcleaner" "alacritty"
-	    "font-iosevka-nerd-font" "font-jetbrains-mono-nerd-font" "font-fira-mono-nerd-font" "font-comic-shanns-mono-nerd-font"
+            "warp" "firefox" "rectangle" "eloston-chromium" "docker" "qutebrowser"
+            "selfcontrol" "maccy" "1Password" "appcleaner" "mactex" "font-ubuntu-mono-nerd-font"
+	    "font-iosevka-nerd-font" "font-jetbrains-mono-nerd-font"  "font-comic-shanns-mono-nerd-font"
           ];
           masApps = {
             "Xcode" = 497799835;
             "1Password for Safari" = 1569813296;
-            "AdGuard" = 1440147259;
           };
         };
 
@@ -164,8 +139,6 @@
 
         system.defaults = {
           dock.autohide = true;
-          dock.persistent-apps = [
-          ];
           NSGlobalDomain.AppleICUForce24HourTime = true;
           NSGlobalDomain.AppleInterfaceStyle = "Dark";
           NSGlobalDomain.KeyRepeat = 2;
