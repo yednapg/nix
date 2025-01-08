@@ -25,7 +25,7 @@
 	home.packages = with pkgs; [];
 
         home.sessionVariables = {
-          EDITOR = "vim";
+          EDITOR = "nvim";
         };
 
         programs.zsh = {
@@ -45,19 +45,6 @@
           '';
         };
 
-        programs.vim = {
-          enable = true;
-          defaultEditor = true;
-          settings = { ignorecase = true; };
-          extraConfig = ''
-            syntax on
-            set number
-            set mouse=a
-            set background=dark
-            colorscheme murphy  
-          '';
-        };
-
 	programs.neovim = {
 	  enable = true;
 	  plugins = with pkgs.vimPlugins; [];
@@ -65,7 +52,7 @@
 	    syntax on
 	    set number
 	    set background=dark
-            colorscheme murphy
+            colorscheme vim
 	  '';
 	};
 
@@ -96,7 +83,7 @@
         security.pam.enableSudoTouchIdAuth = true;
         programs.zsh.enable = true;
 
-        environment.systemPackages = with pkgs; [vim neovim git-lfs mkalias alacritty-theme];
+        environment.systemPackages = with pkgs; [vim neovim git-lfs mkalias];
 
         homebrew = {
           enable = true;
@@ -107,14 +94,12 @@
             "gh" "cocoapods" "mas" "watchman"
           ];
           casks = [
-            "whatsapp" "figma" "slack" "discord" "zoom" "visual-studio-code"
-            "warp" "firefox" "rectangle" "eloston-chromium" "docker" "qutebrowser"
-            "selfcontrol" "maccy" "1Password" "appcleaner" "mactex" "font-ubuntu-mono-nerd-font"
+            "whatsapp" "figma" "slack" "discord" "zoom" "visual-studio-code" "arc"
+            "rectangle" "docker" "firefox" "google-chrome"
+            "selfcontrol" "airtable" "maccy" "1Password" "appcleaner" "font-ubuntu-mono-nerd-font"
 	    "font-iosevka-nerd-font" "font-jetbrains-mono-nerd-font"  "font-comic-shanns-mono-nerd-font"
           ];
           masApps = {
-            "Xcode" = 497799835;
-            "1Password for Safari" = 1569813296;
           };
         };
 
@@ -149,7 +134,7 @@
       };
     in
     {
-      darwinConfigurations.himalayas = nix-darwin.lib.darwinSystem {
+      darwinConfigurations.nature = nix-darwin.lib.darwinSystem {
         modules = [
           configuration
           home-manager.darwinModules.home-manager {
