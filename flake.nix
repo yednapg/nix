@@ -95,9 +95,8 @@
           ];
           casks = [
             "whatsapp" "figma" "slack" "discord" "zoom" "visual-studio-code" "arc"
-            "rectangle" "docker" "firefox" "google-chrome"
-            "selfcontrol" "airtable" "maccy" "1Password" "appcleaner" "font-ubuntu-mono-nerd-font"
-	    "font-iosevka-nerd-font" "font-jetbrains-mono-nerd-font"  "font-comic-shanns-mono-nerd-font"
+            "rectangle" "docker" "firefox" "google-chrome" "mactex"
+            "selfcontrol" "airtable" "maccy" "appcleaner" "font-comic-shanns-mono-nerd-font"
           ];
           masApps = {
           };
