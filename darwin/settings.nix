@@ -12,6 +12,10 @@
       QuitMenuItem = true;
       FXEnableExtensionChangeWarning = false;
     };
+    CustomUserPreferences."com.apple.Terminal" = {
+      # Remove AppKit window animation for Terminal launches and new windows.
+      NSAutomaticWindowAnimationsEnabled = false;
+    };
     NSGlobalDomain = {
       AppleShowAllExtensions = true;
       InitialKeyRepeat = 15;
