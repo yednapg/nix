@@ -4,7 +4,8 @@
     enable = true;
 
     plugins = [
-      pkgs.vimPlugins.vim-solarized8
+      # Ethan Schoonover's original Solarized colorscheme
+      pkgs.vimPlugins.vim-colors-solarized
     ];
 
     extraConfig = ''
@@ -14,15 +15,19 @@
       set fileformats=unix,dos,mac
 
     " Visual settings
-      set termguicolors
+      " Original Solarized in 16-color mode: Vim uses the terminal's own
+      " Solarized ANSI palette, so the colors are exactly the official ones.
+      set notermguicolors
+      let g:solarized_termcolors=16
       autocmd ColorScheme * highlight Normal guibg=NONE ctermbg=NONE
       autocmd ColorScheme * highlight NonText guibg=NONE ctermbg=NONE
       autocmd ColorScheme * highlight NormalFloat guibg=NONE ctermbg=NONE
       autocmd ColorScheme * highlight SignColumn guibg=NONE
       autocmd ColorScheme * highlight LineNr guibg=NONE
       syntax enable
-      set background=dark
-      colorscheme murphy
+      " 'background' is not forced: Vim asks the terminal for its background
+      " color, so Solarized Dark and Solarized Light profiles both look right.
+      colorscheme solarized
 
       set relativenumber
       set cursorline
@@ -58,4 +63,15 @@
       set undofile
     '';
   };
+
+  # Neovim (installed via Homebrew): same original Solarized setup.
+  xdg.dataFile."nvim/site/pack/nix/start/vim-colors-solarized".source =
+    pkgs.vimPlugins.vim-colors-solarized;
+  xdg.configFile."nvim/init.vim".text = ''
+    set notermguicolors
+    let g:solarized_termcolors=16
+    syntax enable
+    " 'background' is auto-detected from the terminal (dark or light profile).
+    colorscheme solarized
+  '';
 }
