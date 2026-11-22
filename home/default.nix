@@ -7,6 +7,7 @@
     ./kitty.nix
     ./ghostty.nix
     ./vim.nix
+    ./bat.nix
   ];
 
   home.stateVersion = "24.05";
